@@ -14,13 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import id.hikari.learning.oauth2.CustomOAuth2UserService;
-import id.hikari.learning.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import id.hikari.learning.oauth2.OAuth2AuthenticationFailureHandler;
-import id.hikari.learning.oauth2.OAuth2AuthenticationSuccessHandler;
 import id.hikari.learning.security.CustomUserDetailsService;
 import id.hikari.learning.security.RestAuthenticationEntryPoint;
 import id.hikari.learning.security.TokenAuthenticationFilter;
+import id.hikari.learning.security.oauth2.CustomOAuth2UserService;
+import id.hikari.learning.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import id.hikari.learning.security.oauth2.OAuth2AuthenticationFailureHandler;
+import id.hikari.learning.security.oauth2.OAuth2AuthenticationSuccessHandler;
+
 import org.springframework.security.config.BeanIds;
 
 @Configuration

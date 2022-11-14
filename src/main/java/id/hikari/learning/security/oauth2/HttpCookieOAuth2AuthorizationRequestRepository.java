@@ -1,4 +1,4 @@
-package id.hikari.learning.oauth2;
+package id.hikari.learning.security.oauth2;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 

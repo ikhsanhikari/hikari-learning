@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ApiResponse {
+public class ApiResponseData<T> {
     private HttpStatus status;
-    private String message;
+    private T data;
 
-    public ApiResponse(String message) {
-        this.message = message;
+    public ApiResponseData(T data) {
         this.status = HttpStatus.OK;
+        this.data = data;
     }
 
 }

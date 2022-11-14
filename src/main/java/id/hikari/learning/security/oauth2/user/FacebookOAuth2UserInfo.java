@@ -1,4 +1,4 @@
-package id.hikari.learning.oauth2.user;
+package id.hikari.learning.security.oauth2.user;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package id.hikari.learning.oauth2;
+package id.hikari.learning.security.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -13,10 +13,10 @@ import org.springframework.util.StringUtils;
 import id.hikari.learning.exeption.OAuth2AuthenticationProcessingException;
 import id.hikari.learning.model.AuthProvider;
 import id.hikari.learning.model.User;
-import id.hikari.learning.oauth2.user.OAuth2UserInfo;
-import id.hikari.learning.oauth2.user.OAuth2UserInfoFactory;
 import id.hikari.learning.repository.UserRepository;
 import id.hikari.learning.security.UserPrincipal;
+import id.hikari.learning.security.oauth2.user.OAuth2UserInfo;
+import id.hikari.learning.security.oauth2.user.OAuth2UserInfoFactory;
 
 import java.util.Optional;
 

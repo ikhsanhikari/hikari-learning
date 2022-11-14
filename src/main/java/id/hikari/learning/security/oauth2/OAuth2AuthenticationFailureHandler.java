@@ -1,4 +1,4 @@
-package id.hikari.learning.oauth2;
+package id.hikari.learning.security.oauth2;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import id.hikari.learning.utils.CookieUtils;
-import static id.hikari.learning.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+
+import static id.hikari.learning.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 import java.io.IOException;
 
