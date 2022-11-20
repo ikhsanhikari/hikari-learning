@@ -26,4 +26,9 @@ public class PatternController {
     public ResponseEntity getAllPattern() {
         return patternService.getAllPattern();
     }
+
+    @GetMapping("/lov")
+    public ResponseEntity getAllPatternLov() {
+        return patternService.getAllPatternLov();
+    }
 }

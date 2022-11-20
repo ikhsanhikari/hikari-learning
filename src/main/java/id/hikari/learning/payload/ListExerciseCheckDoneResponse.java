@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExerciseAnswerResponse {
-    private String question;
+public class ListExerciseCheckDoneResponse {
+    private String exerciseName;
     private String generateId;
-    private Integer noIndex;
-
+    private String description;
+    private Long amount;
+    private Boolean isDone;
 }

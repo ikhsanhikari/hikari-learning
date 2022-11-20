@@ -60,6 +60,8 @@ public class GeneralUtil {
             to = StaticValue.getOperator();
         } else if (randomType.equals(":output")) {
             to = "\"" + StaticValue.getRandomOutput() + "\"";
+        } else if (randomType.equals(":logic")) {
+            to = StaticValue.getLogicOperator();
         }
         return to;
     }

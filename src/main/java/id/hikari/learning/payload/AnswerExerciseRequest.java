@@ -2,16 +2,17 @@ package id.hikari.learning.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Setter
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ExerciseAnswerResponse {
-    private String question;
+public class AnswerExerciseRequest {
     private String generateId;
-    private Integer noIndex;
-
+    private String answer; 
+    private Integer studentId;
 }

@@ -34,13 +34,28 @@ public class StaticValue {
         return result.get(rand.nextInt(result.size()));
     }
 
+    public static String getLogicOperator() {
+        List<String> result = Arrays.asList("||", "&&");
+        Random rand = new Random();
+        return result.get(rand.nextInt(result.size()));
+    }
+
     public static String printLnText(String text) {
         return "System.out.println(\"" + text + "\");";
     }
 
     public static String getRandomOutput() {
-        int index = new Random().nextInt(5);
-        List<String> result = Arrays.asList("Wooz", "Buff", "Hi", "Hello", "Huzzzzzz", "Yosh");
+        int index = new Random().nextInt(20);
+        List<String> result = Arrays.asList(
+                "Wooz",
+                "Buff",
+                "Hi",
+                "Hello",
+                "Huzzzzzz",
+                "Yosh", "fun", "memorial",
+                "item", "buy", "bean", "law", "hotdog", "figure", "sour", "bang",
+                "ministry", "fax", "deal", "want", "relaxation", "delicate", "concentrate",
+                "advocate", "archive", "reflect");
         Collections.shuffle(result);
         return result.get(index);
 
@@ -60,4 +75,5 @@ public class StaticValue {
     public static final String OUTPUT = ":output";
     public static final String COMPARE = ":compare";
     public static final String OPERATOR = ":operator";
+    public static final String LOGIC = ":logic";
 }

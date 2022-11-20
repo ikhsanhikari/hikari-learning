@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GenerateExerciseResponse {
     private String pattern;
+    private Integer exerciseId;
 }

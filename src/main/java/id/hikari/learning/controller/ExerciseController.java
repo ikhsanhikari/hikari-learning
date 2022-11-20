@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.hikari.learning.payload.ExerciseRequest;
+import id.hikari.learning.security.CurrentUser;
+import id.hikari.learning.security.UserPrincipal;
 import id.hikari.learning.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 
@@ -35,8 +37,9 @@ public class ExerciseController {
     }
 
     @GetMapping("/answer")
-    public ResponseEntity answer() {
-        return exerciseService.getExerciseAnswer();
+    public ResponseEntity answer(@CurrentUser UserPrincipal principal) {
+        return exerciseService.getExerciseAnswer(principal);
     }
 
+    
 }

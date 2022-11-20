@@ -5,13 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,28 +19,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "exercise_answer")
+@Table(name = "student_exercise_answer")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExerciseAnswer extends Auditable<String> implements Serializable {
+public class StudentExerciseAnswer extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Long id;
-    private Integer noIndex;
-    @Column(name = "exercise_id")
-    private Integer exerciseId;
-    @Column(name = "generate_id")
+    private Integer id;
+    @Column(unique = true)
     private String generateId;
-    private String code;
     private String answer;
+    @Column(name = "student_id")
+    private Integer studentId;
     @ManyToOne
-    @JoinColumn(name = "exercise_id",referencedColumnName = "id", insertable = false, updatable = false)
-    private Exercise exercise;
-
+    @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
 }

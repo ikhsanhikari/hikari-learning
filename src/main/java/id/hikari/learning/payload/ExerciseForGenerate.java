@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class ExerciseForGenerate {
     private String pattern;
     private Integer amount;
+    private Integer exerciseId;
 }

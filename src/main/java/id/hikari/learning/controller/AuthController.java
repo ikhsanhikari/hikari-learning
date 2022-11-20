@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import id.hikari.learning.exeption.BadRequestException;
 import id.hikari.learning.model.AuthProvider;
+import id.hikari.learning.model.ERole;
 import id.hikari.learning.model.User;
 import id.hikari.learning.payload.ApiResponse;
 import id.hikari.learning.payload.AuthResponse;
@@ -22,6 +23,7 @@ import id.hikari.learning.security.TokenProvider;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -50,7 +52,16 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.createToken(authentication);
-        return ResponseEntity.ok(new AuthResponse(token));
+        Optional<User> findByEmail = userRepository.findByEmail(loginRequest.getEmail());
+        if (!findByEmail.isPresent()) {
+            throw new RuntimeException("not found email");
+        }
+        User user = findByEmail.get();
+        return ResponseEntity.ok(AuthResponse.builder().accessToken(token)
+        .name(user.getName())
+        .email(user.getEmail())
+        .role(user.getRole())
+        .build());
     }
 
     @PostMapping("/signup")
@@ -65,6 +76,7 @@ public class AuthController {
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
+        user.setRole(ERole.ROLE_USER);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

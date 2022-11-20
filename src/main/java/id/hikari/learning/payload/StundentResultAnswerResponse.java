@@ -5,13 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class ExerciseAnswerResponse {
-    private String question;
+public class StundentResultAnswerResponse {
+    private Integer id;
     private String generateId;
-    private Integer noIndex;
+    private String studentName;
+    private String studentEmail;
+    private String answer;
+    private Integer studentId;
 
 }

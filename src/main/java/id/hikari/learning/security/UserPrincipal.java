@@ -6,12 +6,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import id.hikari.learning.model.User;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@ToString
 public class UserPrincipal implements OAuth2User, UserDetails {
     private Long id;
     private String email;
