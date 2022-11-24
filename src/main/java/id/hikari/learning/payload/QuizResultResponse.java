@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class CreatePatternResponse {
-    private String patternResult;
-    private String output;
-    private String error;
+public class QuizResultResponse {
+    private String studentName;
+    private String quizName;
+    private String answer;
+    private String question;
+    private String value;
+    private String note;
 }

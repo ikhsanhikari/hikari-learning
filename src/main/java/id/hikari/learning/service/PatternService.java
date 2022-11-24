@@ -48,17 +48,21 @@ public class PatternService {
                         .language("java")
                         .build());
         compile.put("code", code);
-        patternRepository.save(
-                Pattern.builder()
-                        .pattern(patternRequest.getPattern())
-                        .courseLevel(patternRequest.getCourseLevel())
-                        .courseType(patternRequest.getCourseType())
-                        .build());
+        
+        if (compile.get("error") != null) {
+            patternRepository.save(
+                    Pattern.builder()
+                            .pattern(patternRequest.getPattern())
+                            .courseLevel(patternRequest.getCourseLevel())
+                            .courseType(patternRequest.getCourseType())
+                            .build());
+        }
 
         return ResponseEntity.ok(new ApiResponseData<>(
                 CreatePatternResponse.builder()
                         .patternResult(code)
                         .output(compile.get("output"))
+                        .error(compile.get("error"))
                         .build()));
     }
 
