@@ -1,5 +1,7 @@
 package id.hikari.learning.payload;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +17,6 @@ public class ListExerciseCheckDoneResponse {
     private String description;
     private Long amount;
     private Boolean isDone;
+    private String createdBy;
+    private Date createdDate;
 }

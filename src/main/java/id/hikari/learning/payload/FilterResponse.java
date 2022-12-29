@@ -9,12 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class QuizResultResponse {
-    private Integer id;
-    private String studentName;
-    private String quizName;
-    private String answer;
-    private String question;
+public class FilterResponse {
+    private String text;
     private String value;
-    private String note;
 }

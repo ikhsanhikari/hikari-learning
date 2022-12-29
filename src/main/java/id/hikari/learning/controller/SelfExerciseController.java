@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import id.hikari.learning.payload.ExerciseRequest;
 import id.hikari.learning.security.CurrentUser;
 import id.hikari.learning.security.UserPrincipal;
-import id.hikari.learning.service.ExerciseService;
+import id.hikari.learning.service.SelfExerciseService;
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/exercise")
+@RequestMapping("/self_exercise")
 @RestController
 @RequiredArgsConstructor
-public class ExerciseController {
+public class SelfExerciseController {
 
-    private final ExerciseService exerciseService;
+    private final SelfExerciseService exerciseService;
 
     @GetMapping("/{id}")
     public ResponseEntity generateExerciseFromPattern(@PathVariable("id") Integer id) {

@@ -11,6 +11,8 @@ public interface StudentQuizRepository extends JpaRepository<StudentQuiz, Intege
 
     List<StudentQuiz> findAllByQuizId(Integer quizId);
 
+    List<StudentQuiz> findAllByStudentId(Integer studentId);
+
     Optional<StudentQuiz> findByStudentIdAndQuizId(Integer studentId, Integer quizId);
 
 }

@@ -35,8 +35,8 @@ public class QuizController {
     }
 
     @GetMapping("/instructur")
-    public ResponseEntity findAllQuizForInstructur() {
-        return quizService.getAllQuizForInstructur();
+    public ResponseEntity findAllQuizForInstructur(@CurrentUser UserPrincipal principal) {
+        return quizService.getAllQuizForInstructur(principal);
     }
 
     @GetMapping("/result")

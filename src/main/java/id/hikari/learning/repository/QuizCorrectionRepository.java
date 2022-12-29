@@ -13,7 +13,7 @@ public interface QuizCorrectionRepository extends JpaRepository<QuizCorrection, 
 
     Optional<QuizCorrection> findByStudentQuizId(Integer studentQuizId);
 
-    @Query(value = "select new id.hikari.learning.payload.QuizResultResponse(d.name,c.quizName,b.answer,c.question,a.value,a.note) from QuizCorrection a inner join StudentQuiz b on a.studentQuizId=b.id inner join Quiz c on b.quizId=c.id inner join User d on d.id = b.studentId where d.id = :studentId")
+    @Query(value = "select new id.hikari.learning.payload.QuizResultResponse(a.id,d.name,c.quizName,b.answer,c.question,a.value,a.note) from QuizCorrection a inner join StudentQuiz b on a.studentQuizId=b.id inner join Quiz c on b.quizId=c.id inner join User d on d.id = b.studentId where d.id = :studentId order by a.id desc")
     List<QuizResultResponse> findQuizResult(Long studentId);
 
 }

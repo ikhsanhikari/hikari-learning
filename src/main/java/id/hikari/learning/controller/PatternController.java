@@ -22,6 +22,11 @@ public class PatternController {
         return patternService.createPattern(patternRequest);
     }
 
+    @PostMapping("/execute")
+    public ResponseEntity executePattern(@RequestBody PatternRequest patternRequest) {
+        return patternService.executePattern(patternRequest);
+    }
+
     @GetMapping("/")
     public ResponseEntity getAllPattern() {
         return patternService.getAllPattern();

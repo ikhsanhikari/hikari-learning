@@ -2,7 +2,6 @@ package id.hikari.learning.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import id.hikari.learning.payload.AnswerExerciseRequest;
 import id.hikari.learning.security.CurrentUser;
 import id.hikari.learning.security.UserPrincipal;
-import id.hikari.learning.service.StudentExerciseAnswerService;
+import id.hikari.learning.service.StudentSelfExerciseAnswerService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/student_exercise_answer")
-public class StudentExerciseAnswerController {
+@RequestMapping("/student_self_exercise_answer")
+public class StudentSelfExerciseAnswerController {
 
-    private final StudentExerciseAnswerService answerService;
+    private final StudentSelfExerciseAnswerService answerService;
 
     @PostMapping("/")
     public ResponseEntity saveANswer(@RequestBody AnswerExerciseRequest req, @CurrentUser UserPrincipal principal) {
@@ -28,12 +27,8 @@ public class StudentExerciseAnswerController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getNswer(@CurrentUser UserPrincipal principal) {
+    public ResponseEntity saveANswer(@CurrentUser UserPrincipal principal) {
         return answerService.findAllResult(principal);
     }
 
-    @GetMapping("/profile_for_instructur/{studentId}")
-    public ResponseEntity getForProfile(@PathVariable("studentId") Integer studentId) {
-        return answerService.profileForInstructur(studentId);
-    }
 }

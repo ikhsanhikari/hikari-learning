@@ -22,6 +22,9 @@ import id.hikari.learning.payload.StudentQuizResponse;
 import id.hikari.learning.repository.QuizCorrectionRepository;
 import id.hikari.learning.repository.QuizRepository;
 import id.hikari.learning.repository.StudentQuizRepository;
+import id.hikari.learning.security.UserPrincipal;
+import id.hikari.learning.utils.GeneralUtil;
+import id.hikari.learning.utils.UtilService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -32,6 +35,8 @@ public class QuizService {
     private final StudentQuizRepository studentQuizRepository;
 
     private final QuizCorrectionRepository correctionRepository;
+
+    private final UtilService utilService;
 
     public ResponseEntity createQuiz(QuizRequest request) {
         quizRepository.save(Quiz.builder()
@@ -44,12 +49,19 @@ public class QuizService {
     }
 
     public ResponseEntity createStudentQuiz(StudentQuizRequest request) {
-        studentQuizRepository.save(StudentQuiz.builder()
-                .answer(request.getAnswer())
-                .quizId(request.getQuizId())
-                .studentId(request.getStudentId())
-                .build());
-        return ResponseEntity.ok(new ApiResponse("Success to answered quiz!"));
+        Optional<StudentQuiz> exist = studentQuizRepository.findByStudentIdAndQuizId(request.getStudentId(),
+                request.getQuizId());
+        System.out.println(exist.isPresent());
+        if (!exist.isPresent()) {
+            studentQuizRepository.save(StudentQuiz.builder()
+                    .answer(request.getAnswer())
+                    .quizId(request.getQuizId())
+                    .studentId(request.getStudentId())
+                    .build());
+            return ResponseEntity.ok(new ApiResponse("Success to answered quiz!"));
+        }
+        return ResponseEntity.ok(new ApiResponse("Student quiz is exist!"));
+
     }
 
     public ResponseEntity createQuizCorrection(QuizCorrectionRequest request) {
@@ -74,17 +86,23 @@ public class QuizService {
         return ResponseEntity.ok(new ApiResponseData<>(studentQuizRepository.findAllByQuizId(quizId)));
     }
 
-    public ResponseEntity getAllQuizForInstructur() {
+    public ResponseEntity getAllQuizForInstructur(UserPrincipal principal) {
+
         List<QuizForInstructurResponse> collect = quizRepository.findAllByOrderByIdDesc().stream().map(item -> {
+
             return QuizForInstructurResponse.builder()
                     .quizName(item.getQuizName())
                     .description(item.getDescription())
                     .id(item.getId())
+                    .createdBy(item.getCreatedBy())
                     .studentFinish(countStudentFinish(item.getId()).getCountFinishStudent())
                     .corrected(countStudentFinish(item.getId()).getFinishCorrection())
                     .notCorrectedYet(countStudentFinish(item.getId()).getNotFinishYetCorrection())
+                    .createdDate(GeneralUtil.getDateFormat(item.getCreationDate()))
                     .build();
-        }).collect(Collectors.toList());
+        })
+                .filter(i -> utilService.onlyOwnInstructur(principal.getId(), i.getCreatedBy()))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(new ApiResponseData<>(collect));
     }
 
@@ -106,7 +124,8 @@ public class QuizService {
     public ResponseEntity getAllQuiz(Integer studentId) {
         List<Quiz> collect = quizRepository.findAll().stream().filter(item -> {
             return checkQuizIsDone(studentId, item.getId());
-        }).collect(Collectors.toList());
+        }).filter(item -> utilService.validateInstructurOfStudentOnly(studentId, item.getCreatedBy()))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(new ApiResponseData<>(collect));
     }
 

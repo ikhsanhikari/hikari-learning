@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "student_exercise_answer")
+@Table(name = "student_self_exercise_answer")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StudentExerciseAnswer extends Auditable<String> implements Serializable {
+public class StudentSelfExerciseAnswer extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

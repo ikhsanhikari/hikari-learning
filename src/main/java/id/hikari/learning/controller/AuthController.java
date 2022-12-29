@@ -58,10 +58,10 @@ public class AuthController {
         }
         User user = findByEmail.get();
         return ResponseEntity.ok(AuthResponse.builder().accessToken(token)
-        .name(user.getName())
-        .email(user.getEmail())
-        .role(user.getRole())
-        .build());
+                .name(user.getName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build());
     }
 
     @PostMapping("/signup")
@@ -74,11 +74,9 @@ public class AuthController {
         User user = new User();
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
-        user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
-        user.setRole(ERole.ROLE_USER);
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
         User result = userRepository.save(user);
 

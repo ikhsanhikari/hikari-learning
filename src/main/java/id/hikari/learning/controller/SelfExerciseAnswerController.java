@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import id.hikari.learning.service.ExerciseService;
+import id.hikari.learning.service.SelfExerciseService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/exercise_answer")
-public class ExerciseAnswerController {
+@RequestMapping("/self_exercise_answer")
+public class SelfExerciseAnswerController {
 
-    private final ExerciseService exerciseService;
+    private final SelfExerciseService exerciseService;
 
     @GetMapping("/{generateId}")
     public ResponseEntity getByGenerateId(@PathVariable("generateId") String generateId) {

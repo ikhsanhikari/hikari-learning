@@ -1,5 +1,7 @@
 package id.hikari.learning.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,5 +84,11 @@ public class GeneralUtil {
             builder.replace(start, end, checkRandomType(word));
         }
         return builder.toString();
+    }
+
+    public static String getDateFormat(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(date);
+        return format;
     }
 }

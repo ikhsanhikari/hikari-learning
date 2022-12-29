@@ -76,4 +76,6 @@ public class StaticValue {
     public static final String COMPARE = ":compare";
     public static final String OPERATOR = ":operator";
     public static final String LOGIC = ":logic";
+
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 }

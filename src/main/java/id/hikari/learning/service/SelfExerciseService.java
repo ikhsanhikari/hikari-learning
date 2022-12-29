@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
 
 import id.hikari.learning.feign.CLientApi;
 import id.hikari.learning.feign.CodexRequest;
-import id.hikari.learning.model.Exercise;
-import id.hikari.learning.model.ExerciseAnswer;
-import id.hikari.learning.model.ExercisePattern;
-import id.hikari.learning.model.StudentExerciseAnswer;
+import id.hikari.learning.model.SelfExercise;
+import id.hikari.learning.model.SelfExerciseAnswer;
+import id.hikari.learning.model.SelfExercisePattern;
+import id.hikari.learning.model.StudentSelfExerciseAnswer;
 import id.hikari.learning.payload.ApiResponse;
 import id.hikari.learning.payload.ApiResponseData;
 import id.hikari.learning.payload.CheckAnswerResponse;
@@ -35,11 +35,11 @@ import id.hikari.learning.payload.GenerateExerciseResponse;
 import id.hikari.learning.payload.ListExerciseCheckDoneResponse;
 import id.hikari.learning.payload.ListExerciseResponse;
 import id.hikari.learning.payload.PatternResultResponse;
-import id.hikari.learning.repository.ExerciseAnswerRepository;
-import id.hikari.learning.repository.ExercisePatternRepository;
-import id.hikari.learning.repository.ExerciseRepository;
 import id.hikari.learning.repository.PatternRepository;
-import id.hikari.learning.repository.StudentExerciseAnswerRepository;
+import id.hikari.learning.repository.SelfExerciseAnswerRepository;
+import id.hikari.learning.repository.SelfExercisePatternRepository;
+import id.hikari.learning.repository.SelfExerciseRepository;
+import id.hikari.learning.repository.StudentSelfExerciseAnswerRepository;
 import id.hikari.learning.security.UserPrincipal;
 import id.hikari.learning.utils.GeneralUtil;
 import id.hikari.learning.utils.StaticValue;
@@ -50,19 +50,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class ExerciseService {
+public class SelfExerciseService {
 
-        private final ExercisePatternRepository exercisePatternRepository;
+        private final SelfExercisePatternRepository exercisePatternRepository;
 
-        private final ExerciseRepository exerciseRepository;
+        private final SelfExerciseRepository exerciseRepository;
 
         private final PatternRepository patternRepository;
 
         private final CLientApi cLientApi;
 
-        private final ExerciseAnswerRepository exerciseAnswerRepository;
+        private final SelfExerciseAnswerRepository exerciseAnswerRepository;
 
-        private final StudentExerciseAnswerRepository studentExerciseAnswerRepository;
+        private final StudentSelfExerciseAnswerRepository studentExerciseAnswerRepository;
 
         private final UtilService utilService;
 
@@ -122,14 +122,14 @@ public class ExerciseService {
 
         @Transactional
         public ResponseEntity createExercise(ExerciseRequest exerciseRequest) {
-                Exercise saveExercise = exerciseRepository.save(
-                                Exercise.builder()
+                SelfExercise saveExercise = exerciseRepository.save(
+                                SelfExercise.builder()
                                                 .exerciseName(exerciseRequest.getExerciseName())
                                                 .description(exerciseRequest.getDescription())
                                                 .build());
                 exerciseRequest.getPatterns().forEach((item) -> {
                         exercisePatternRepository.save(
-                                        ExercisePattern.builder()
+                                        SelfExercisePattern.builder()
                                                         .amount(item.getAmount())
                                                         .exercise(saveExercise)
                                                         .pattern(patternRepository.findById(item.getPatternId()).get())
@@ -151,8 +151,9 @@ public class ExerciseService {
         }
 
         public ResponseEntity getAllExercise(UserPrincipal principal) {
-                List<Exercise> exercises = exerciseRepository.findAllByOrderByIdDesc().stream()
-                                .filter(item -> utilService.onlyOwnInstructur(principal.getId(), item.getCreatedBy()))
+                List<SelfExercise> exercises = exerciseRepository.findAllByOrderByIdDesc().stream()
+                                // .filter(item -> utilService.onlyOwnInstructur(principal.getId(),
+                                // item.getCreatedBy()))
                                 .collect(Collectors.toList());
                 return ResponseEntity.ok(new ApiResponseData<>(exercises));
         }
@@ -180,7 +181,7 @@ public class ExerciseService {
                 }).thenAccept((item) -> {
                         log.info("start saving data");
                         try {
-                                exerciseAnswerRepository.save(ExerciseAnswer.builder()
+                                exerciseAnswerRepository.save(SelfExerciseAnswer.builder()
                                                 .answer(item.get("output"))
                                                 .code(code)
                                                 .generateId(randomUUID.toString())
@@ -212,7 +213,7 @@ public class ExerciseService {
                 Integer id = Integer.parseInt(String.valueOf(principal.getId()));
                 List<ListExerciseResponse> findGroupByGenerateId = exerciseAnswerRepository.findGroupByGenerateId();
                 List<ListExerciseCheckDoneResponse> result = findGroupByGenerateId.stream()
-                                .filter(i -> checkisAdmin(isAdmin, i.getCreatedBy(), principal))
+                                // .filter(i -> checkisAdmin(isAdmin, i.getCreatedBy(), principal))
                                 .map(item -> {
                                         return ListExerciseCheckDoneResponse.builder()
                                                         .amount(item.getAmount())
@@ -221,14 +222,14 @@ public class ExerciseService {
                                                         .exerciseName(item.getExerciseName())
                                                         .isDone(checkIsDoneExercise(item.getGenerateId(), id))
                                                         .createdBy(item.getCreatedBy())
-                                                        .createdDate(item.getCreationDate())
                                                         .build();
                                 }).collect(Collectors.toList());
                 return ResponseEntity.ok(new ApiResponseData<>(result));
         }
 
         private Boolean checkIsDoneExercise(String generateId, Integer studentId) {
-                StudentExerciseAnswer exist = studentExerciseAnswerRepository.findByGenerateIdAndStudentId(generateId,
+                StudentSelfExerciseAnswer exist = studentExerciseAnswerRepository.findByGenerateIdAndStudentId(
+                                generateId,
                                 studentId);
                 if (exist != null) {
                         return true;
@@ -238,7 +239,8 @@ public class ExerciseService {
 
         public ResponseEntity getExerciseAnswerByGenerateId(String generateId) {
 
-                List<ExerciseAnswer> result = exerciseAnswerRepository.findAllByGenerateIdOrderByNoIndex(generateId);
+                List<SelfExerciseAnswer> result = exerciseAnswerRepository
+                                .findAllByGenerateIdOrderByNoIndex(generateId);
 
                 List<ExerciseAnswerResponse> res = result.stream().map(item -> ExerciseAnswerResponse.builder()
                                 .noIndex(item.getNoIndex())
@@ -250,8 +252,9 @@ public class ExerciseService {
         }
 
         public ResponseEntity getAnswer(String generateId, Integer studentId) {
-                List<ExerciseAnswer> result = exerciseAnswerRepository.findAllByGenerateIdOrderByNoIndex(generateId);
-                StudentExerciseAnswer findByGenerateId = studentExerciseAnswerRepository
+                List<SelfExerciseAnswer> result = exerciseAnswerRepository
+                                .findAllByGenerateIdOrderByNoIndex(generateId);
+                StudentSelfExerciseAnswer findByGenerateId = studentExerciseAnswerRepository
                                 .findByGenerateIdAndStudentId(generateId, studentId);
                 String[] splitAnswer = findByGenerateId.getAnswer().split(",");
                 List<String> answers = Arrays.asList(splitAnswer);
@@ -263,7 +266,7 @@ public class ExerciseService {
                                 .build());
 
                 IntStream.range(0, answers.size()).forEach(idx -> {
-                        ExerciseAnswer res = result.get(idx);
+                        SelfExerciseAnswer res = result.get(idx);
                         String answer = answers.get(idx);
 
                         fillAnswerResponse(res, answer, answerResponses.getExercises(),
@@ -283,7 +286,7 @@ public class ExerciseService {
                 }
         }
 
-        private void fillAnswerResponse(ExerciseAnswer res, String answer, List<QuestionExercises> answerResponses,
+        private void fillAnswerResponse(SelfExerciseAnswer res, String answer, List<QuestionExercises> answerResponses,
                         ResultAnswer resultAnswer) {
                 answerResponses.add(QuestionExercises.builder()
                                 .answer(res.getAnswer())

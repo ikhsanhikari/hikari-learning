@@ -1,5 +1,7 @@
 package id.hikari.learning.payload;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +16,6 @@ public class ListExerciseResponse {
     private String generateId;
     private String description;
     private Long amount;
+    private String createdBy;
+    private Date creationDate;
 }

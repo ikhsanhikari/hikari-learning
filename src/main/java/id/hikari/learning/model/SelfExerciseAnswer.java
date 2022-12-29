@@ -19,27 +19,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "student_exercise_answer")
+@Table(name = "self_exercise_answer")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StudentExerciseAnswer extends Auditable<String> implements Serializable {
+public class SelfExerciseAnswer extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Column(unique = true)
+    private Long id;
+    private Integer noIndex;
+    @Column(name = "exercise_id")
+    private Integer exerciseId;
+    @Column(name = "generate_id")
     private String generateId;
+    private String code;
     private String answer;
-    @Column(name = "student_id")
-    private Integer studentId;
-    private Integer rightAnswer;
-    private Integer wrongAnswer;
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user;
+    @JoinColumn(name = "exercise_id",referencedColumnName = "id", insertable = false, updatable = false)
+    private SelfExercise exercise;
+
 }
