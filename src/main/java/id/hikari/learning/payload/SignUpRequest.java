@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignUpRequest {
+    private Long id;
     @NotBlank
     private String name;
 
@@ -21,7 +22,7 @@ public class SignUpRequest {
     @NotBlank
     private String password;
 
-    private Integer instructur;
+    private Integer instructurId;
 
     private String role;
 

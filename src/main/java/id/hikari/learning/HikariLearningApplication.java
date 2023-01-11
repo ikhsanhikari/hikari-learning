@@ -7,11 +7,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import id.hikari.learning.config.AppProperties;
+import id.hikari.learning.utils.FileStorageProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(AppProperties.class)
+@EnableConfigurationProperties({ AppProperties.class, FileStorageProperties.class })
 @EnableAsync
 @EnableFeignClients
+
 public class HikariLearningApplication {
 
 	public static void main(String[] args) {

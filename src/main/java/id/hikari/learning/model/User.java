@@ -15,6 +15,9 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,6 +26,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Where(clause = "email_verified=1")
 @Builder
 @Data
 @Entity
@@ -31,6 +35,7 @@ import lombok.NoArgsConstructor;
 })
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "Update users set email_verified = 0 where id = ?")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,7 +70,7 @@ public class User {
     private Integer instructurId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @JoinColumn(name = "instructur", referencedColumnName = "id", nullable = true, updatable = false, insertable = false)
     private User instructur;
 

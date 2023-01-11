@@ -42,10 +42,11 @@ public class UserService {
 
     public ResponseEntity createUser(SignUpRequest request) {
         userRepository.save(User.builder()
+                .id(request.getId())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
-                .instructurId(request.getInstructur())
+                .instructurId(request.getInstructurId())
                 .role(request.getRole())
                 .provider(AuthProvider.local)
                 .emailVerified(false)

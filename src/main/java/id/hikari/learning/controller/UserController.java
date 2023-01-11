@@ -3,6 +3,7 @@ package id.hikari.learning.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.hikari.learning.exeption.ResourceNotFoundException;
 import id.hikari.learning.model.User;
+import id.hikari.learning.payload.ApiResponse;
 import id.hikari.learning.payload.ApiResponseData;
 import id.hikari.learning.payload.SignUpRequest;
 import id.hikari.learning.repository.UserRepository;
@@ -34,8 +36,13 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getAllUser(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(new ApiResponseData<>(userRepository.findById(id)));
+    }
+
     @GetMapping("")
-    public ResponseEntity getAllUser(@PageableDefault Pageable pageable) {
+    public ResponseEntity getAllUserById(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(new ApiResponseData<>(userRepository.findAll(pageable)));
     }
 
@@ -46,7 +53,6 @@ public class UserController {
                         userRepository.findAllByInstructurIdOrderByIdDesc(principal.getId().intValue())));
     }
 
-
     @GetMapping("/instructur/{type}")
     public ResponseEntity getInstructur(@PathVariable("type") String type) {
         return userService.getInstructur(type);
@@ -55,5 +61,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity createUser(@RequestBody SignUpRequest request) {
         return userService.createUser(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        userRepository.delete(user);
+        return ResponseEntity.ok(new ApiResponse("Success Delete User!"));
     }
 }
