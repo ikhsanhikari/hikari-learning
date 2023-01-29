@@ -6,13 +6,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.hikari.learning.service.ReportService;
@@ -20,9 +16,6 @@ import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 @RequiredArgsConstructor
 @RestController
@@ -63,6 +56,20 @@ public class ReportController {
             JasperPrint report = reportService.generateReport("summary_of_student.jasper", param);
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", String.format("attachment; filename=\"summary.pdf\""));
+            JasperExportManager.exportReportToPdfStream(report, response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/quiz/{id}")
+    public void quizReport(HttpServletResponse response, @PathVariable("id") Integer id) {
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("id", id);
+            JasperPrint report = reportService.generateReport("list_quiz.jasper", param);
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"list_quiz.pdf\""));
             JasperExportManager.exportReportToPdfStream(report, response.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();

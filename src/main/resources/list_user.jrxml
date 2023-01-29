@@ -2,7 +2,11 @@
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="list_user" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="d82aab41-2f5b-484b-91d5-4a9d4481ecef">
 	<property name="template.engine" value="tabular_template"/>
-	
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[aGlrYXJpX2xlYXJuaW5nLnVzZXJzIEFTICwxMjUsNzcsMzE0YjZkYzctNTc1OC00Nzg1LTljODUt
+NDNlY2UyMmFkOTZhOw==]]>
+	</property>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
@@ -48,7 +52,19 @@
 	</style>
 	<subDataset name="tableDataset" uuid="2793f397-ee74-4b91-b1c3-e02cb6f9ba05">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
-		<queryString language="SQL"></queryString>
+		<queryString language="SQL">
+			<![CDATA[SELECT id,
+	email,
+	name,
+	role,
+	case 
+		when a.instructur is null then
+			''
+		else 
+			(select name from hikari_learning.users where id = a.instructur) 
+	end instructur
+FROM hikari_learning.users a]]>
+		</queryString>
 		<field name="id" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.name" value="id"/>
 			<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -148,13 +164,20 @@
 				</textElement>
 				<text><![CDATA[List Student]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="396" y="-2" width="100" height="30" uuid="d3cdc5b2-304b-4163-994e-3fbd68fcc7f0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bandung,"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
 		<band height="200" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<componentElement>
-				<reportElement x="42" y="0" width="513" height="200" uuid="05262c46-d190-42ea-a4e7-12e95a8fd012">
+				<reportElement style="Detail" x="42" y="0" width="513" height="200" uuid="05262c46-d190-42ea-a4e7-12e95a8fd012">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -201,7 +224,7 @@
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="25">
-							<textField>
+							<textField textAdjust="ScaleFont">
 								<reportElement style="Detail" x="0" y="0" width="90" height="25" uuid="7830e5c6-cdaf-4149-800d-2b4a261deda1"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -225,7 +248,7 @@
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="25">
-							<textField>
+							<textField textAdjust="ScaleFont">
 								<reportElement style="Detail" x="0" y="0" width="90" height="25" uuid="ed1c3be3-0ef6-41e5-9563-d17fec9eaed1"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -249,7 +272,7 @@
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="25">
-							<textField>
+							<textField textAdjust="ScaleFont">
 								<reportElement style="Detail" x="0" y="0" width="90" height="25" uuid="ac6ccc5f-1e44-483f-b72f-307032dce3a6"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -273,8 +296,8 @@
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="25">
-							<textField>
-								<reportElement style="Detail" x="0" y="0" width="90" height="25" uuid="ac730a2a-9915-4970-a90f-7ecccdbdaf39"/>
+							<textField textAdjust="ScaleFont">
+								<reportElement style="Title" x="0" y="0" width="90" height="25" uuid="ac730a2a-9915-4970-a90f-7ecccdbdaf39"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="Arial" size="12"/>
