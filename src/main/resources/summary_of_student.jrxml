@@ -69,6 +69,10 @@ WHERE u.instructur in (select instructur from users where instructur = $P{instru
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="0" width="50" height="50" uuid="5bab9d4a-3473-4607-9965-b3dbb2d954fa"/>
+				<imageExpression><![CDATA["pasim.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

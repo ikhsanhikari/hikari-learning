@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="belajar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="591e4842-22c7-4c57-bc2d-52b6766b5e56">
+	<parameter name="title" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="value" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="quizName" class="java.lang.String"/>
+	<field name="studentName" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="122" splitType="Stretch">
+			<rectangle radius="4">
+				<reportElement x="0" y="0" width="555" height="85" backcolor="#757571" uuid="d135a508-a87c-49fe-8011-950e63824b43"/>
+			</rectangle>
+			<image>
+				<reportElement x="20" y="17" width="50" height="50" uuid="171695ae-8057-492a-9cb2-c77511b34e06"/>
+				<imageExpression><![CDATA["pasim2.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="110" y="17" width="420" height="50" forecolor="#FFFCFC" uuid="8fa1762c-2e6d-4027-9c03-f5699728552e"/>
+				<textElement>
+					<font size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" pattern="dd MMM yyyy">
+				<reportElement x="430" y="25" width="100" height="30" forecolor="#FAF3F2" uuid="f453109f-db8b-4987-b3c7-c1c0fbb1f3a1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="25" width="46" height="30" forecolor="#FCF3F2" uuid="ae866885-cd8e-430f-9ca8-667cce0f94a8"/>
+				<textElement markup="styled"/>
+				<text><![CDATA[Bandung,]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="1" width="70" height="30" uuid="7af6dc3b-7de4-469d-9495-09727d886e4a"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="1" width="96" height="30" uuid="aad0620d-2941-4da8-909f-2396d19d185e"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quiz Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="1" width="100" height="30" uuid="de8d0980-1f3c-43c8-ad22-d054ccdb602e"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="1" width="100" height="30" uuid="f25f09a7-4915-40e2-9bfc-f34069e9103c"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="54" height="30" uuid="e667332f-89d9-4bff-9ab9-825eb22c8e99"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="0" width="100" height="30" uuid="d94b3dfd-e8be-423e-a108-02dc538725b5"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="1" width="80" height="30" uuid="906a6725-f27e-4ceb-8b05-b0d37a8269ef"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="1" width="100" height="30" uuid="318f69ad-d5f9-4790-9d15-ecdf5884ef00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff28428e-59a8-4326-b450-74731168e2f0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{quizName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="1" width="100" height="30" uuid="a70e5bfc-20a5-4499-9158-2ac42717f949">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47fd73bc-4f5b-4e6a-b2be-b5d6a8070c3d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="1" width="100" height="30" uuid="a3526c30-12ea-4983-8521-17e41de5fb9c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="824abbd6-612e-4808-9dc1-4c4b2110b8d3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="2" width="78" height="30" uuid="03f79444-4541-4162-91a9-e5820a0064b5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc88ce0c-b477-4ac9-877a-5674fc259d9e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="1" width="100" height="30" uuid="001f31e4-e9be-4489-b05e-5841682d3fef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0617a3ce-e728-48fc-8e0d-8717e97b9d97"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{studentName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

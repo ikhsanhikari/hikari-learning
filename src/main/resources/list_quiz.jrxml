@@ -10,7 +10,7 @@ from student_quiz sq
 INNER JOIN users u on sq.student_id = u.id
 INNER JOIN quiz q on q.id = sq.quiz_id
 INNER JOIN quiz_correction qc on qc.student_quiz_id = sq.id
-where quiz_id = $P{id} ]]>
+where quiz_id = $P{id}]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
@@ -53,7 +53,7 @@ where quiz_id = $P{id} ]]>
 		</band>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="87" splitType="Stretch">
 			<staticText>
 				<reportElement x="80" y="0" width="370" height="61" uuid="be60f6e1-b2e5-432e-a7af-1467b34abd64"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -75,6 +75,10 @@ where quiz_id = $P{id} ]]>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="10" width="50" height="50" uuid="f554ca40-2857-4c1d-8f7c-f1f959deb694"/>
+				<imageExpression><![CDATA["pasim.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

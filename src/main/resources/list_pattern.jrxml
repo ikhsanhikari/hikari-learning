@@ -65,7 +65,7 @@ FROM hikari_learning.pattern]]>
 		<![CDATA[]]>
 	</queryString>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="81" splitType="Stretch">
 			<staticText>
 				<reportElement x="210" y="24" width="160" height="30" uuid="477c81cf-a47b-42d7-ad19-0f9a8fe307e6"/>
 				<textElement>
@@ -87,6 +87,10 @@ FROM hikari_learning.pattern]]>
 				</textElement>
 				<textFieldExpression><![CDATA["Bandung,"]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="10" width="50" height="50" uuid="a8c1498d-a9bf-4f64-a6a1-59a81f3b2b0e"/>
+				<imageExpression><![CDATA["pasim.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageFooter>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="belajar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="591e4842-22c7-4c57-bc2d-52b6766b5e56">
+	<parameter name="title" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="pattern" class="java.lang.String"/>
+	<field name="courseLevel" class="java.lang.String"/>
+	<field name="courseType" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="122" splitType="Stretch">
+			<rectangle radius="4">
+				<reportElement x="0" y="0" width="555" height="85" backcolor="#757571" uuid="d135a508-a87c-49fe-8011-950e63824b43"/>
+			</rectangle>
+			<image>
+				<reportElement x="20" y="17" width="50" height="50" uuid="171695ae-8057-492a-9cb2-c77511b34e06"/>
+				<imageExpression><![CDATA["pasim2.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="110" y="17" width="420" height="50" forecolor="#FFFCFC" uuid="8fa1762c-2e6d-4027-9c03-f5699728552e"/>
+				<textElement>
+					<font size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="25" width="46" height="30" forecolor="#FCF3F2" uuid="dcde6d74-2ca6-4a65-8cd8-347b645158f9"/>
+				<textElement markup="styled"/>
+				<text><![CDATA[Bandung,]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" pattern="dd MMM yyyy">
+				<reportElement x="430" y="25" width="100" height="30" forecolor="#FAF3F2" uuid="a38b78a6-ddcd-4cb2-8014-5ef96cab208c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="1" width="220" height="30" uuid="7af6dc3b-7de4-469d-9495-09727d886e4a"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pattern]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="3" width="88" height="30" uuid="f2ed5552-ccc6-41f7-9c8c-32e69d13a95f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Level]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="1" width="100" height="30" uuid="aad0620d-2941-4da8-909f-2396d19d185e"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="170" splitType="Stretch">
+			<textField textAdjust="ScaleFont">
+				<reportElement x="10" y="10" width="320" height="160" uuid="e29a5ad6-cd54-4a6b-b6e7-dd6689e7f397"/>
+				<textFieldExpression><![CDATA[$F{pattern}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="10" width="100" height="30" uuid="906a6725-f27e-4ceb-8b05-b0d37a8269ef"/>
+				<textFieldExpression><![CDATA[$F{courseLevel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="10" width="100" height="30" uuid="7a9d14c0-a9ad-4d9d-bdbe-87655e250596"/>
+				<textFieldExpression><![CDATA[$F{courseType}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

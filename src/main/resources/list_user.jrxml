@@ -146,6 +146,10 @@ FROM hikari_learning.users a]]>
 				</textElement>
 				<text><![CDATA[Student]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="50" height="50" uuid="d8798b68-6d35-4b83-bcc2-c1370de569a1"/>
+				<imageExpression><![CDATA["pasim.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageFooter>

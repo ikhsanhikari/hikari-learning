@@ -44,6 +44,7 @@ public class QuizService {
                 .quizName(request.getQuizName())
                 .description(request.getDescription())
                 .longQuizTimer(request.getLongQuizTimer())
+                .id(request.getId())
                 .build());
         return ResponseEntity.ok(new ApiResponse("Success create quiz"));
     }
@@ -144,22 +145,26 @@ public class QuizService {
         return true;
     }
 
+    public List<StudentQuizResponse> getStudentQuizByQuiz(Integer quizId) {
+        return studentQuizRepository.findAllByQuizId(quizId).stream()
+                .map((item) -> StudentQuizResponse.builder()
+                        .id(item.getId())
+                        .quizName(item.getQuiz().getQuizName())
+                        .description(item.getQuiz().getDescription())
+                        .answer(item.getAnswer())
+                        .studentName(item.getUser().getName())
+                        .studentEmail(item.getUser().getEmail())
+                        .question(item.getQuiz().getQuestion())
+                        .doneQuiz(checkQuizIsCorrection(item.getId()))
+                        .value(getNoteAndValue(item.getId()).getValue())
+                        .note(getNoteAndValue(item.getId()).getNote())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
     public ResponseEntity findAllStudentQuizByQuiz(Integer quizId) {
         return ResponseEntity.ok(new ApiResponseData<>(
-                studentQuizRepository.findAllByQuizId(quizId).stream()
-                        .map((item) -> StudentQuizResponse.builder()
-                                .id(item.getId())
-                                .quizName(item.getQuiz().getQuizName())
-                                .description(item.getQuiz().getDescription())
-                                .answer(item.getAnswer())
-                                .studentName(item.getUser().getName())
-                                .studentEmail(item.getUser().getEmail())
-                                .question(item.getQuiz().getQuestion())
-                                .doneQuiz(checkQuizIsCorrection(item.getId()))
-                                .value(getNoteAndValue(item.getId()).getValue())
-                                .note(getNoteAndValue(item.getId()).getNote())
-                                .build())
-                        .collect(Collectors.toList())));
+                getStudentQuizByQuiz(quizId)));
     }
 
     private QuizCorrection getNoteAndValue(Integer id) {

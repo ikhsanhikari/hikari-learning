@@ -49,7 +49,7 @@ public class UserService {
                 .instructurId(request.getInstructurId())
                 .role(request.getRole())
                 .provider(AuthProvider.local)
-                .emailVerified(false)
+                .emailVerified(true)
                 .build());
         return ResponseEntity.ok(new ApiResponse("Success Create User!"));
     }

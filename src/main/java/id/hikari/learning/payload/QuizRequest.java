@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class QuizRequest {
+    private Integer id;
     private String quizName;
     private String question;
     private String description;
